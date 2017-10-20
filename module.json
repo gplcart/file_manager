@@ -1,0 +1,16 @@
+{
+    "name": "File manager",
+    "version": "1.0.0-dev",
+    "description": "Allows to manage different files",
+    "author": "Iurii Makukh <gplcart.software@gmail.com>",
+    "core": "1.x",
+    "license": "GPL-3.0+",
+    "configure": "admin/module/settings/file-manager",
+    "settings": {
+        "limit": 100,
+        "access": [],
+        "initial_path": "upload",
+        "filesize_limit": [],
+        "extension_limit": []
+    }
+}

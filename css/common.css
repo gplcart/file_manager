@@ -1,0 +1,39 @@
+.filemanager { 
+    border: 1px solid #ccc;
+}
+
+.filemanager ol.breadcrumb {
+    margin-bottom: 10px !important;
+}
+
+.filemanager .form-toolbar {
+    margin-bottom: 10px;
+}
+
+.filemanager .nav-tabs {
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.filemanager .content-wrapper{
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.filemanager form {
+    padding-bottom: 20px;
+}
+
+.filemanager .pagination {
+    margin: 0;
+}
+
+.filemanager thead {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    position: sticky;
+    top: 0; 
+    z-index: 99999;
+}
