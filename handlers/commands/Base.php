@@ -69,7 +69,7 @@ class Base extends Handler
      */
     protected function getFiles($directory, array $options = array())
     {
-        return $this->scanner->scan($directory, $options);
+        return (array) $this->scanner->scan($directory, $options);
     }
 
     /**

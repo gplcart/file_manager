@@ -102,7 +102,6 @@ class FileManager extends Module
 
     /**
      * Implements hook "module.uninstall.after"
-     * @param null|string $result
      */
     public function hookModuleUninstallAfter()
     {

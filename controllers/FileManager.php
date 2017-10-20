@@ -264,7 +264,6 @@ class FileManager extends BackendController
 
     /**
      * Returns an array of path breadcrumbs
-     * @param string $path
      * @return array
      */
     protected function getPathBreadcrumbsFileManager()
