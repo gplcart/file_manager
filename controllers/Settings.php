@@ -42,7 +42,7 @@ class Settings extends BackendController
         $this->setTitleEditSettings();
         $this->setBreadcrumbEditSettings();
 
-        $this->setData('file_dir', gplcart_path_normalize(GC_FILE_DIR));
+        $this->setData('file_dir', gplcart_path_normalize(GC_DIR_FILE));
         $this->setData('settings', $this->config->module('file_manager'));
 
         $this->submitSettings();
@@ -82,17 +82,15 @@ class Settings extends BackendController
     {
         $data = $this->getData("settings.$setting");
 
-        if (!is_array($data)) {
-            return null;
-        }
+        if (is_array($data)) {
+            $string = '';
+            foreach ($data as $key => $value) {
+                $list = implode(',', (array) $value);
+                $string .= "$key $list\n";
+            }
 
-        $string = '';
-        foreach ($data as $key => $value) {
-            $list = implode(',', (array) $value);
-            $string .= "$key $list\n";
+            $this->setData("settings.$setting", trim($string));
         }
-
-        $this->setData("settings.$setting", trim($string));
     }
 
     /**

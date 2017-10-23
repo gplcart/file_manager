@@ -33,7 +33,7 @@
       <?php if(!empty($selected)) { ?>
       <?php echo $this->text('Empty selected directories:'); ?>
       <ul class="list-unstyled">
-      <?php foreach ($selected as $selected_path => $selected_file) { ?>
+      <?php foreach ($selected as $selected_path => $selected_file) { /* @var $selected_file \SplFileInfo */ ?>
         <?php if($selected_file->isDir()) { ?>
         <li><?php echo $this->e($selected_file->getBasename()); ?></li>
         <?php } ?>

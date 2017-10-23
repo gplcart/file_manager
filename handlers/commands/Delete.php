@@ -51,6 +51,7 @@ class Delete extends FileManagerBaseHandler
     /**
      * Delete file(s)
      * @param \gplcart\core\Controller $controller
+     * @return array
      */
     public function submit($controller)
     {

@@ -51,6 +51,7 @@ class Create extends FileManagerBaseHandler
     /**
      * Creates a new file
      * @param \gplcart\core\Controller $controller
+     * @return array
      */
     public function submit($controller)
     {

@@ -30,7 +30,7 @@
       <?php echo $this->text('Zip and download the following files:'); ?>
       <?php $selected_files = array(); ?>
       <?php foreach ($selected as $selected_path => $selected_file) { ?>
-      <?php $selected_files[] = $this->e($selected_file->getBasename()); ?>
+      <?php /* @var $selected_file \SplFileInfo */ $selected_files[] = $this->e($selected_file->getBasename()); ?>
       <?php } ?>
       <div class="selected-files"><?php echo implode(', ', $selected_files); ?></div>
       <?php } ?>

@@ -47,6 +47,7 @@ class Move extends FileManagerBaseHandler
     /**
      * Moves submitted files to another destination
      * @param \gplcart\core\Controller $controller
+     * @return array
      */
     public function submit($controller)
     {
@@ -65,6 +66,7 @@ class Move extends FileManagerBaseHandler
 
             $destination = $submitted['destinations'][$index];
 
+            /* @var $file \SplFileInfo */
             if ($this->move($file->getRealPath(), $submitted['destinations'][$index])) {
                 $success++;
             } else {

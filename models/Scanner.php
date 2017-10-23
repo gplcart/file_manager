@@ -126,6 +126,7 @@ class Scanner extends Model
 
     /**
      * Returns a string with initial path to scan files
+     * @param bool|null|string $absolute
      * @return string
      */
     public function getInitialPath($absolute = false)

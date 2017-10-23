@@ -47,6 +47,7 @@ class Copy extends FileManagerBaseHandler
     /**
      * Copies files
      * @param \gplcart\core\Controller $controller
+     * @return array
      */
     public function submit($controller)
     {
@@ -64,6 +65,8 @@ class Copy extends FileManagerBaseHandler
             }
 
             $destination = $submitted['destinations'][$index];
+
+            /* @var $file \SplFileInfo */
             $this->copy($file->getRealPath(), $destination, $errors, $success);
         }
 

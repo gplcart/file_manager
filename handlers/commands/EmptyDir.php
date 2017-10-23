@@ -55,6 +55,7 @@ class EmptyDir extends FileManagerBaseHandler
     /**
      * Empty directories
      * @param \gplcart\core\Controller $controller
+     * @return array
      */
     public function submit($controller)
     {
@@ -66,8 +67,8 @@ class EmptyDir extends FileManagerBaseHandler
         /* @var $file \SplFileInfo */
         foreach ($controller->getSubmitted('files') as $file) {
             $path = $file->getRealPath();
-            foreach ($this->getFiles($path) as $file) {
-                gplcart_file_delete_recursive($file, $errors, $success);
+            foreach ($this->getFiles($path) as $f) {
+                gplcart_file_delete_recursive($f, $errors, $success);
             }
         }
 

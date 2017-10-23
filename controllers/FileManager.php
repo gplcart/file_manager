@@ -186,7 +186,7 @@ class FileManager extends BackendController
     protected function setDataMessagesFileManager()
     {
         $existing_messages = $this->getData('messages', array());
-        $session_messages = $this->session->getMessage(null, 'file_manager_messages');
+        $session_messages = (array) $this->session->getMessage(null, 'file_manager_messages');
         $messages = array_merge_recursive($session_messages, $existing_messages);
         $this->setData('messages', $messages);
     }
@@ -242,6 +242,7 @@ class FileManager extends BackendController
 
     /**
      * Whether the current user has access to the file
+     * @param string $path
      * @return boolean
      */
     protected function accessPathAccessFileManager($path)

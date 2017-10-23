@@ -114,7 +114,7 @@ class Command extends Model
      * Submit a command
      * @param array $command
      * @param array $args
-     * @return string
+     * @return array
      */
     public function submit(array $command, array $args)
     {

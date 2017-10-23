@@ -52,6 +52,7 @@ class Rename extends FileManagerBaseHandler
     /**
      * Rename a file
      * @param \gplcart\core\Controller $controller
+     * @return array
      */
     public function submit($controller)
     {

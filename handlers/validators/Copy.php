@@ -104,8 +104,9 @@ class Copy extends FileManagerBaseValidatorHandler
         $directory = $this->getSubmitted('directory');
 
         $error = null;
-        foreach ($this->getSubmitted('files', array()) as $index => $file) {
+        foreach ((array) $this->getSubmitted('files') as $index => $file) {
 
+            /* @var $file \SplFileInfo */
             if ($file->isDir() && gplcart_path_normalize($file->getRealPath()) === $directory) {
                 $error = $this->language->text('Destination already exists');
                 continue;

@@ -56,6 +56,7 @@ class Upload extends FileManagerBaseHandler
     /**
      * Upload files
      * @param \gplcart\core\Controller $controller
+     * @return array
      */
     public function submit($controller)
     {
