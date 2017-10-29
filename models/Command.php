@@ -101,9 +101,8 @@ class Command extends Model
      */
     public function callHandler(array $command, $method, $args = array())
     {
-        $handlers = $this->getHandlers();
-
         try {
+            $handlers = $this->getHandlers();
             return Handler::call($handlers, $command['command_id'], $method, $args);
         } catch (\Exception $ex) {
             return $ex->getMessage();
