@@ -140,7 +140,7 @@ class FileManager extends BackendController
         $rendered = $this->render('file_manager|filemanager', $this->data);
 
         if ($this->isQuery('output')) {
-            $this->response->html($rendered);
+            $this->response->outputHtml($rendered);
         }
 
         $this->setJsFileManager();
