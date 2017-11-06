@@ -43,7 +43,7 @@ class Settings extends BackendController
         $this->setBreadcrumbEditSettings();
 
         $this->setData('file_dir', gplcart_path_normalize(GC_DIR_FILE));
-        $this->setData('settings', $this->config->module('file_manager'));
+        $this->setData('settings', $this->config->getFromModule('file_manager'));
 
         $this->submitSettings();
         $this->setDataAccessSettings();

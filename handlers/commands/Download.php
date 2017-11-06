@@ -9,6 +9,12 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
+// Parent
+use gplcart\core\Config;
+use gplcart\core\models\Language as LanguageModel;
+use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
+use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
+// New
 use gplcart\core\helpers\Zip as ZipHelper,
     gplcart\core\helpers\Session as SessionHelper;
 use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
@@ -32,12 +38,18 @@ class Download extends FileManagerBaseHandler
     protected $session;
 
     /**
+     * @param Config $config
+     * @param LanguageModel $language
+     * @param FileManagerCommandModel $command
+     * @param FileManagerScannerModel $scanner
      * @param ZipHelper $zip
      * @param SessionHelper $session
      */
-    public function __construct(ZipHelper $zip, SessionHelper $session)
+    public function __construct(Config $config, LanguageModel $language,
+            FileManagerCommandModel $command, FileManagerScannerModel $scanner, ZipHelper $zip,
+            SessionHelper $session)
     {
-        parent::__construct();
+        parent::__construct($config, $language, $command, $scanner);
 
         $this->zip = $zip;
         $this->session = $session;

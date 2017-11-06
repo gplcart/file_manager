@@ -9,21 +9,27 @@
 
 namespace gplcart\modules\file_manager\models;
 
-use gplcart\core\Model,
-    gplcart\core\Handler;
+use gplcart\core\Handler,
+    gplcart\core\Hook;
 
 /**
  * Manages basic behaviors and data related to File manager module
  */
-class Command extends Model
+class Command
 {
 
     /**
-     * Constructor
+     * Hook class instance
+     * @var \gplcart\core\Hook $hook
      */
-    public function __construct()
+    protected $hook;
+
+    /**
+     * @param Hook $hook
+     */
+    public function __construct(Hook $hook)
     {
-        parent::__construct();
+        $this->hook = $hook;
     }
 
     /**

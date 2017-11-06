@@ -9,7 +9,9 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\models\UserRole as UserRoleModel;
+use gplcart\core\Config;
+use gplcart\core\models\Language as LanguageModel,
+    gplcart\core\models\UserRole as UserRoleModel;
 use gplcart\core\handlers\validator\Base as BaseValidator;
 
 /**
@@ -25,11 +27,13 @@ class Settings extends BaseValidator
     protected $role;
 
     /**
+     * @param Config $config
+     * @param LanguageModel $language
      * @param UserRoleModel $role
      */
-    public function __construct(UserRoleModel $role)
+    public function __construct(Config $config, LanguageModel $language, UserRoleModel $role)
     {
-        parent::__construct();
+        parent::__construct($config, $language);
 
         $this->role = $role;
     }

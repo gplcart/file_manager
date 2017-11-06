@@ -9,6 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
+// Parent
+use gplcart\core\Config;
+use gplcart\core\models\Language as LanguageModel;
+use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
+// New
 use gplcart\core\models\File as FileModel,
     gplcart\core\models\User as UserModel;
 use gplcart\core\helpers\Request as RequestHelper;
@@ -39,14 +44,18 @@ class Upload extends FileManagerBaseValidatorHandler
     protected $user;
 
     /**
+     * @param Config $config
+     * @param LanguageModel $language
+     * @param FileManagerScannerModel $scanner
      * @param FileModel $file
      * @param UserModel $user
      * @param RequestHelper $request
      */
-    public function __construct(FileModel $file, UserModel $user,
+    public function __construct(Config $config, LanguageModel $language,
+            FileManagerScannerModel $scanner, FileModel $file, UserModel $user,
             RequestHelper $request)
     {
-        parent::__construct();
+        parent::__construct($config, $language, $scanner);
 
         $this->file = $file;
         $this->user = $user;
@@ -87,7 +96,7 @@ class Upload extends FileManagerBaseValidatorHandler
         }
 
         $role_id = $this->user->getRoleId();
-        $settings = $this->config->module('file_manager');
+        $settings = $this->config->getFromModule('file_manager');
 
         $maxfilesize = 0;
         $extensions = array();

@@ -9,6 +9,9 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
+use gplcart\core\Config;
+use gplcart\core\models\Language as LanguageModel;
+use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
 
 /**
@@ -18,11 +21,14 @@ class Create extends FileManagerBaseValidatorHandler
 {
 
     /**
-     * Constructor
+     * @param Config $config
+     * @param LanguageModel $language
+     * @param FileManagerScannerModel $scanner
      */
-    public function __construct()
+    public function __construct(Config $config, LanguageModel $language,
+            FileManagerScannerModel $scanner)
     {
-        parent::__construct();
+        parent::__construct($config, $language, $scanner);
     }
 
     /**

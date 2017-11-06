@@ -9,6 +9,10 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
+use gplcart\core\Config;
+use gplcart\core\models\Language as LanguageModel;
+use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
+use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
 
 /**
@@ -24,11 +28,15 @@ class Listing extends FileManagerBaseHandler
     protected $controller;
 
     /**
-     * Constructor
+     * @param Config $config
+     * @param LanguageModel $language
+     * @param FileManagerCommandModel $command
+     * @param FileManagerScannerModel $scanner
      */
-    public function __construct()
+    public function __construct(Config $config, LanguageModel $language,
+            FileManagerCommandModel $command, FileManagerScannerModel $scanner)
     {
-        parent::__construct();
+        parent::__construct($config, $language, $command, $scanner);
     }
 
     /**
@@ -57,7 +65,7 @@ class Listing extends FileManagerBaseHandler
         $pager = array(
             'max_pages' => 5,
             'total' => $this->getTotal($path, $query),
-            'limit' => $this->config->module('file_manager', 'limit')
+            'limit' => $this->config->getFromModule('file_manager', 'limit')
         );
 
         return array(

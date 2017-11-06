@@ -11,21 +11,36 @@ namespace gplcart\modules\file_manager\models;
 
 use LimitIterator;
 use FilesystemIterator;
-use gplcart\core\Model;
+use gplcart\core\Config,
+    gplcart\core\Hook;
 use gplcart\modules\file_manager\helpers\Filter;
 
 /**
  * Manages basic behaviors and data related to File manager module
  */
-class Scanner extends Model
+class Scanner
 {
 
     /**
-     * Constructor
+     * Hook class instance
+     * @var \gplcart\core\Hook $hook
      */
-    public function __construct()
+    protected $hook;
+
+    /**
+     * Config class instance
+     * @var \gplcart\core\Config $config
+     */
+    protected $config;
+
+    /**
+     * @param Hook $hook
+     * @param Config $config
+     */
+    public function __construct(Hook $hook, Config $config)
     {
-        parent::__construct();
+        $this->hook = $hook;
+        $this->config = $config;
     }
 
     /**
@@ -131,7 +146,7 @@ class Scanner extends Model
      */
     public function getInitialPath($absolute = false)
     {
-        $path = $this->config->module('file_manager', 'initial_path');
+        $path = $this->config->getFromModule('file_manager', 'initial_path');
         return $absolute ? gplcart_file_absolute($path) : $path;
     }
 

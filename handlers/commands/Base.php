@@ -11,7 +11,10 @@ namespace gplcart\modules\file_manager\handlers\commands;
 
 use DirectoryIterator;
 use gplcart\core\Handler,
-    gplcart\core\Container;
+    gplcart\core\Config;
+use gplcart\core\models\Language as LanguageModel;
+use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
+use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 
 /**
  * Base handler class
@@ -38,15 +41,19 @@ class Base extends Handler
     protected $scanner;
 
     /**
-     * Constructor
+     * @param Config $config
+     * @param LanguageModel $language
+     * @param FileManagerCommandModel $command
+     * @param FileManagerScannerModel $scanner
      */
-    public function __construct()
+    public function __construct(Config $config, LanguageModel $language,
+            FileManagerCommandModel $command, FileManagerScannerModel $scanner)
     {
-        parent::__construct();
+        parent::__construct($config);
 
-        $this->language = Container::get('gplcart\\core\\models\\Language');
-        $this->command = Container::get('gplcart\\modules\\file_manager\\models\\Command');
-        $this->scanner = Container::get('gplcart\\modules\\file_manager\\models\\Scanner');
+        $this->command = $command;
+        $this->scanner = $scanner;
+        $this->language = $language;
     }
 
     /**
