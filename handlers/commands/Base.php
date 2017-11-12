@@ -23,6 +23,12 @@ class Base extends Handler
 {
 
     /**
+     * Config class instance
+     * @var \gplcart\core\Config $config
+     */
+    protected $config;
+
+    /**
      * Language model class instance
      * @var \gplcart\core\models\Language $language
      */
@@ -49,8 +55,7 @@ class Base extends Handler
     public function __construct(Config $config, LanguageModel $language,
             FileManagerCommandModel $command, FileManagerScannerModel $scanner)
     {
-        parent::__construct($config);
-
+        $this->config = $config;
         $this->command = $command;
         $this->scanner = $scanner;
         $this->language = $language;
