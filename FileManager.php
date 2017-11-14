@@ -106,12 +106,7 @@ class FileManager extends Module
      */
     public function hookModuleUninstallAfter()
     {
-        // Delete all saved module settings from the database
-        foreach (array_keys($this->config->select()) as $key) {
-            if (strpos($key, 'module_file_manager_') === 0) {
-                $this->config->reset($key);
-            }
-        }
+        $this->deleteModuleSettings('file_manager');
     }
 
 }
