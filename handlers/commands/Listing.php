@@ -60,33 +60,36 @@ class Listing extends FileManagerBaseHandler
         $this->controller = $controller;
 
         $path = $file->getRealPath();
-        $query = $controller->getQuery(null, array(), 'array');
+        $params = $controller->getQuery(null, array(), 'array');
 
-        $pager = array(
+        $pager_options = array(
             'max_pages' => 5,
-            'total' => $this->getTotal($path, $query),
+            'query' => $params,
+            'total' => $this->getTotal($path, $params),
             'limit' => $this->config->getFromModule('file_manager', 'limit')
         );
 
+        $pager = $this->controller->getPager($pager_options);
+        $params['limit'] = $pager['limit'];
+
         return array(
             'file_manager|commands/list' => array(
+                'pager' => $pager['rendered'],
                 'filters' => $this->scanner->getFilters(),
                 'sorters' => $this->scanner->getSorters(),
-                'pager' => $controller->renderPager($pager),
-                'files' => $this->getFilesListing($path, $query)
+                'files' => $this->getFilesListing($path, $params)
         ));
     }
 
     /**
      * Returns an array of scanned and prepared files
      * @param string $path
-     * @param array $options
+     * @param array $params
      * @return array
      */
-    protected function getFilesListing($path, array $options)
+    protected function getFilesListing($path, array $params)
     {
-        $options['limit'] = $this->controller->getPagerLimit();
-        $files = $this->getFiles($path, $options);
+        $files = $this->getFiles($path, $params);
         return $this->prepareFiles($files);
     }
 

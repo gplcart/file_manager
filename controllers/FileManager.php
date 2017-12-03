@@ -72,8 +72,7 @@ class FileManager extends BackendController
      * @param FileManagerCommandModel $command
      * @param FileManagerScannerModel $scanner
      */
-    public function __construct(FileManagerCommandModel $command,
-            FileManagerScannerModel $scanner)
+    public function __construct(FileManagerCommandModel $command, FileManagerScannerModel $scanner)
     {
         parent::__construct();
 
@@ -420,14 +419,19 @@ class FileManager extends BackendController
      */
     protected function setBreadcrumbFileManager()
     {
-        $this->setBreadcrumbHome();
+        $breadcrumbs = array();
 
-        $breadcrumb = array(
+        $breadcrumbs[] = array(
+            'url' => $this->url('admin'),
+            'text' => $this->text('Dashboard')
+        );
+
+        $breadcrumbs[] = array(
             'url' => $this->url('admin/tool'),
             'text' => $this->text('Tools')
         );
 
-        $this->setBreadcrumb($breadcrumb);
+        $this->setBreadcrumbs($breadcrumbs);
     }
 
     /**
