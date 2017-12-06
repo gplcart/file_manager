@@ -247,7 +247,7 @@ class FileManager extends BackendController
     protected function accessPathAccessFileManager($path)
     {
         $role_id = $this->getUser('role_id');
-        $settings = $this->config->getFromModule('file_manager');
+        $settings = $this->module->getSettings('file_manager');
 
         if (empty($settings['access'][$role_id])) {
             return true;

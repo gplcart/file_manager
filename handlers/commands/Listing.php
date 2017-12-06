@@ -66,7 +66,7 @@ class Listing extends FileManagerBaseHandler
             'max_pages' => 5,
             'query' => $params,
             'total' => $this->getTotal($path, $params),
-            'limit' => $this->config->getFromModule('file_manager', 'limit')
+            'limit' => $this->controller->getModuleSettings('file_manager', 'limit')
         );
 
         $pager = $this->controller->getPager($pager_options);

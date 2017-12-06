@@ -9,7 +9,6 @@
 
 namespace gplcart\modules\file_manager\controllers;
 
-use gplcart\core\models\Module as ModuleModel;
 use gplcart\core\controllers\backend\Controller as BackendController;
 
 /**
@@ -19,19 +18,11 @@ class Settings extends BackendController
 {
 
     /**
-     * Module model instance
-     * @var \gplcart\core\models\Module $module
+     * Constructor
      */
-    protected $module;
-
-    /**
-     * @param ModuleModel $module
-     */
-    public function __construct(ModuleModel $module)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->module = $module;
     }
 
     /**
@@ -43,7 +34,7 @@ class Settings extends BackendController
         $this->setBreadcrumbEditSettings();
 
         $this->setData('file_dir', gplcart_path_normalize(GC_DIR_FILE));
-        $this->setData('settings', $this->config->getFromModule('file_manager'));
+        $this->setData('settings', $this->module->getSettings('file_manager'));
 
         $this->submitSettings();
         $this->setDataAccessSettings();
@@ -149,6 +140,7 @@ class Settings extends BackendController
     protected function updateSettings()
     {
         $this->controlAccess('module_edit');
+
         $this->module->setSettings('file_manager', $this->getSubmitted());
         $this->redirect('', $this->text('Settings have been updated'), 'success');
     }

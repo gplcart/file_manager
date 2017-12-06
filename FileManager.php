@@ -9,21 +9,27 @@
 
 namespace gplcart\modules\file_manager;
 
-use gplcart\core\Module,
-    gplcart\core\Config;
+use gplcart\core\Config,
+    gplcart\core\Container;
 
 /**
  * Main class for File manager module
  */
-class FileManager extends Module
+class FileManager
 {
+
+    /**
+     * Config class instance
+     * @var \gplcart\core\Config $config
+     */
+    protected $config;
 
     /**
      * @param Config $config
      */
     public function __construct(Config $config)
     {
-        parent::__construct($config);
+        $this->config = $config;
     }
 
     /**
@@ -54,10 +60,7 @@ class FileManager extends Module
      */
     public function hookValidatorHandlers(array &$handlers)
     {
-        /* @var $model \gplcart\modules\file_manager\models\Command */
-        $model = $this->getModel('Command', 'file_manager');
-
-        foreach (array_keys($model->getHandlers()) as $command_id) {
+        foreach (array_keys($this->getModel()->getHandlers()) as $command_id) {
             $class = str_replace('_', '', $command_id);
             $handlers["file_manager_$command_id"] = array(
                 'handlers' => array(
@@ -79,14 +82,10 @@ class FileManager extends Module
      */
     public function hookUserRolePermissions(array &$permissions)
     {
-        $language = $this->getLanguage();
-        $permissions['module_file_manager'] = $language->text('File manager: access');
+        $permissions['module_file_manager'] = $this->getLanguage()->text('File manager: access');
 
-        /* @var $model \gplcart\modules\file_manager\models\Command */
-        $model = $this->getModel('Command', 'file_manager');
-
-        foreach ($model->getHandlers() as $command_id => $command) {
-            $permissions["module_file_manager_$command_id"] = $language->text('File manager: perform command @name', array('@name' => $command['name']));
+        foreach ($this->getModel()->getHandlers() as $command_id => $command) {
+            $permissions["module_file_manager_$command_id"] = $this->getLanguage()->text('File manager: perform command @name', array('@name' => $command['name']));
         }
     }
 
@@ -111,6 +110,24 @@ class FileManager extends Module
                 $this->config->reset($key);
             }
         }
+    }
+
+    /**
+     * Returns Command model instance
+     * @return \gplcart\modules\file_manager\models\Command
+     */
+    protected function getModel()
+    {
+        return Container::get('gplcart\\modules\\file_manager\\models\\Command');
+    }
+
+    /**
+     * Language model class instance
+     * @return \gplcart\core\modules\Language
+     */
+    protected function getLanguage()
+    {
+        return Container::get('gplcart\\core\\modules\\Language');
     }
 
 }
