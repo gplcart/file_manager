@@ -9,8 +9,6 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
 use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
 
@@ -21,14 +19,11 @@ class Rename extends FileManagerBaseValidatorHandler
 {
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
      * @param FileManagerScannerModel $scanner
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerScannerModel $scanner)
+    public function __construct(FileManagerScannerModel $scanner)
     {
-        parent::__construct($config, $language, $scanner);
+        parent::__construct($scanner);
     }
 
     /**
@@ -61,14 +56,14 @@ class Rename extends FileManagerBaseValidatorHandler
         $name = $this->getSubmitted('name');
 
         if (strlen($name) == 0) {
-            $this->setErrorRequired('name', $this->language->text('Name'));
+            $this->setErrorRequired('name', $this->translation->text('Name'));
             return false;
         }
 
         $pattern = $file->isFile() ? '/^[\w-.]+$/' : '/^[\w-]+$/';
 
         if (preg_match($pattern, $name) !== 1) {
-            $this->setErrorInvalid('name', $this->language->text('Name'));
+            $this->setErrorInvalid('name', $this->translation->text('Name'));
             return false;
         }
 
@@ -95,7 +90,7 @@ class Rename extends FileManagerBaseValidatorHandler
         $destination = gplcart_path_normalize("$directory/$name");
 
         if (file_exists($destination)) {
-            $this->setError('name', $this->language->text('Destination already exists'));
+            $this->setError('name', $this->translation->text('Destination already exists'));
             return false;
         }
 

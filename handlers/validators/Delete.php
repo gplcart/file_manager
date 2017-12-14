@@ -9,8 +9,6 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
 use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
 
@@ -21,14 +19,11 @@ class Delete extends FileManagerBaseValidatorHandler
 {
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
      * @param FileManagerScannerModel $scanner
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerScannerModel $scanner)
+    public function __construct(FileManagerScannerModel $scanner)
     {
-        parent::__construct($config, $language, $scanner);
+        parent::__construct($scanner);
     }
 
     /**

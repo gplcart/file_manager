@@ -11,10 +11,7 @@ namespace gplcart\modules\file_manager\handlers\commands;
 
 use DirectoryIterator;
 use gplcart\core\Handler,
-    gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
-use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
+    gplcart\core\Container;
 
 /**
  * Base handler class
@@ -29,10 +26,10 @@ class Base extends Handler
     protected $config;
 
     /**
-     * Language model class instance
-     * @var \gplcart\core\models\Language $language
+     * Translation UI model class instance
+     * @var \gplcart\core\models\Translation $translation
      */
-    protected $language;
+    protected $translation;
 
     /**
      * Command model class instance
@@ -47,18 +44,24 @@ class Base extends Handler
     protected $scanner;
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
-     * @param FileManagerCommandModel $command
-     * @param FileManagerScannerModel $scanner
+     * Constructor
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerCommandModel $command, FileManagerScannerModel $scanner)
+    public function __construct()
     {
-        $this->config = $config;
-        $this->command = $command;
-        $this->scanner = $scanner;
-        $this->language = $language;
+        $this->config = Container::get('gplcart\\core\\Config');
+        $this->translation = Container::get('gplcart\\core\\models\\Translation');
+        $this->command = Container::get('gplcart\\modules\\file_manager\\models\\Command');
+        $this->scanner = Container::get('gplcart\\modules\\file_manager\\models\\Scanner');
+    }
+
+    /**
+     * Sets a property
+     * @param string $name
+     * @param mixed $value
+     */
+    public function setProperty($name, $value)
+    {
+        $this->{$name} = $value;
     }
 
     /**

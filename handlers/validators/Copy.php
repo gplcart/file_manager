@@ -9,8 +9,6 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
 use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
 
@@ -21,14 +19,11 @@ class Copy extends FileManagerBaseValidatorHandler
 {
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
      * @param FileManagerScannerModel $scanner
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerScannerModel $scanner)
+    public function __construct(FileManagerScannerModel $scanner)
     {
-        parent::__construct($config, $language, $scanner);
+        parent::__construct($scanner);
     }
 
     /**
@@ -57,7 +52,7 @@ class Copy extends FileManagerBaseValidatorHandler
     {
         $destination = $this->getSubmitted('destination');
         if ($destination !== '' && preg_match('/^[\w-]+[\w-\/]*[\w-]+$|^[\w-]$/', $destination) !== 1) {
-            $this->setErrorInvalid('destination', $this->language->text('Destination'));
+            $this->setErrorInvalid('destination', $this->translation->text('Destination'));
             return false;
         }
 
@@ -78,17 +73,17 @@ class Copy extends FileManagerBaseValidatorHandler
         $directory = gplcart_path_normalize("$initial_path/" . $this->getSubmitted('destination'));
 
         if (!file_exists($directory) && !mkdir($directory, 0777, true)) {
-            $this->setError('destination', $this->language->text('Destination does not exist'));
+            $this->setError('destination', $this->translation->text('Destination does not exist'));
             return false;
         }
 
         if (!is_dir($directory)) {
-            $this->setError('destination', $this->language->text('Destination is not a directory'));
+            $this->setError('destination', $this->translation->text('Destination is not a directory'));
             return false;
         }
 
         if (!is_writable($directory)) {
-            $this->setError('destination', $this->language->text('Directory is not writable'));
+            $this->setError('destination', $this->translation->text('Directory is not writable'));
             return false;
         }
 
@@ -114,14 +109,14 @@ class Copy extends FileManagerBaseValidatorHandler
 
             /* @var $file \SplFileInfo */
             if ($file->isDir() && gplcart_path_normalize($file->getRealPath()) === $directory) {
-                $error = $this->language->text('Destination already exists');
+                $error = $this->translation->text('Destination already exists');
                 continue;
             }
 
             $destination = "$directory/" . $file->getBasename();
 
             if (file_exists($destination)) {
-                $error = $this->language->text('Destination already exists');
+                $error = $this->translation->text('Destination already exists');
                 continue;
             }
 

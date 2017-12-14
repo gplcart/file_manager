@@ -9,10 +9,6 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
-use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
 
 /**
@@ -22,15 +18,11 @@ class Read extends FileManagerBaseHandler
 {
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
-     * @param FileManagerCommandModel $command
-     * @param FileManagerScannerModel $scanner
+     * Constructor
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerCommandModel $command, FileManagerScannerModel $scanner)
+    public function __construct()
     {
-        parent::__construct($config, $language, $command, $scanner);
+        parent::__construct();
     }
 
     /**

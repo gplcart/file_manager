@@ -9,10 +9,6 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
-use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
 
 /**
@@ -22,15 +18,11 @@ class Create extends FileManagerBaseHandler
 {
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
-     * @param FileManagerCommandModel $command
-     * @param FileManagerScannerModel $scanner
+     * Constructor
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerCommandModel $command, FileManagerScannerModel $scanner)
+    public function __construct()
     {
-        parent::__construct($config, $language, $command, $scanner);
+        parent::__construct();
     }
 
     /**
@@ -93,14 +85,14 @@ class Create extends FileManagerBaseHandler
             return array(
                 'severity' => 'success',
                 'redirect' => $controller->url('', $query),
-                'message' => $this->language->text('File has been created')
+                'message' => $this->translation->text('File has been created')
             );
         }
 
         return array(
             'severity' => 'warning',
             'redirect' => $controller->url('', $query),
-            'message' => $this->language->text('File has not been created')
+            'message' => $this->translation->text('File has not been created')
         );
     }
 

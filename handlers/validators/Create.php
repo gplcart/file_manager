@@ -9,8 +9,6 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
 use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
 
@@ -21,14 +19,11 @@ class Create extends FileManagerBaseValidatorHandler
 {
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
      * @param FileManagerScannerModel $scanner
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerScannerModel $scanner)
+    public function __construct(FileManagerScannerModel $scanner)
     {
-        parent::__construct($config, $language, $scanner);
+        parent::__construct($scanner);
     }
 
     /**
@@ -57,7 +52,7 @@ class Create extends FileManagerBaseValidatorHandler
         $name = $this->getSubmitted('name');
 
         if (strlen($name) == 0) {
-            $this->setErrorRequired('name', $this->language->text('Name'));
+            $this->setErrorRequired('name', $this->translation->text('Name'));
             return false;
         }
 
@@ -67,14 +62,14 @@ class Create extends FileManagerBaseValidatorHandler
             // Validate filename. Allow only alphanumeric chars, underscores, dashes and dots
             $name = trim($pathinfo['dirname'], '.');
             if (preg_match('/^[\w-.]+$/', $pathinfo['basename']) !== 1) {
-                $this->setErrorInvalid('name', $this->language->text('Name'));
+                $this->setErrorInvalid('name', $this->translation->text('Name'));
                 return false;
             }
         }
 
         // Validate directory path
         if ($name && preg_match('/^[\w-]+[\w-\/]*[\w-]+$|^[\w-]$/', $name) !== 1) {
-            $this->setErrorInvalid('name', $this->language->text('Name'));
+            $this->setErrorInvalid('name', $this->translation->text('Name'));
             return false;
         }
 
@@ -99,7 +94,7 @@ class Create extends FileManagerBaseValidatorHandler
         $directory = $file->getRealPath();
 
         if (file_exists("$directory/$name")) {
-            $this->setError('name', $this->language->text('Destination already exists'));
+            $this->setError('name', $this->translation->text('Destination already exists'));
             return false;
         }
 

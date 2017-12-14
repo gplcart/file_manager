@@ -9,11 +9,7 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\core\Config;
-use gplcart\core\models\User as UserModel,
-    gplcart\core\models\Language as LanguageModel;
-use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
+use gplcart\core\models\User as UserModel;
 use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
 
 /**
@@ -29,16 +25,11 @@ class Upload extends FileManagerBaseHandler
     protected $user;
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
-     * @param FileManagerCommandModel $command
-     * @param FileManagerScannerModel $scanner
      * @param UserModel $user
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerCommandModel $command, FileManagerScannerModel $scanner, UserModel $user)
+    public function __construct(UserModel $user)
     {
-        parent::__construct($config, $language, $command, $scanner);
+        parent::__construct();
 
         $this->user = $user;
     }
@@ -89,7 +80,7 @@ class Upload extends FileManagerBaseHandler
         return array(
             'redirect' => $controller->url('', $query),
             'severity' => empty($result['errors']) ? 'success' : 'warning',
-            'message' => $this->language->text('Uploaded @num_success, errors: @num_errors', $vars)
+            'message' => $this->translation->text('Uploaded @num_success, errors: @num_errors', $vars)
         );
     }
 

@@ -9,15 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-// Parent
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel;
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
-// New
 use gplcart\core\Module;
-use gplcart\core\models\File as FileModel,
-    gplcart\core\models\User as UserModel;
+use gplcart\core\models\User as UserModel,
+    gplcart\core\models\FileTransfer as FileTransferModel;
 use gplcart\core\helpers\Request as RequestHelper;
+use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
 use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
 
 /**
@@ -33,42 +29,39 @@ class Upload extends FileManagerBaseValidatorHandler
     protected $request;
 
     /**
-     * File model instance
-     * @var \gplcart\core\models\File $file
-     */
-    protected $file;
-
-    /**
      * User model instance
      * @var \gplcart\core\models\User $user
      */
     protected $user;
-    
+
     /**
      * Module class instance
      * @var \gplcart\core\Module $module
      */
     protected $module;
-    
+
     /**
-     * @param Config $config
-     * @param LanguageModel $language
+     * File transfer model instance
+     * @var \gplcart\core\models\FileTransfer $file_transfer
+     */
+    protected $file_transfer;
+
+    /**
      * @param FileManagerScannerModel $scanner
      * @param Module $module
-     * @param FileModel $file
+     * @param FileTransferModel $file_transfer
      * @param UserModel $user
      * @param RequestHelper $request
      */
-    public function __construct(Config $config, LanguageModel $language,
-            FileManagerScannerModel $scanner, Module $module, FileModel $file, UserModel $user,
-            RequestHelper $request)
+    public function __construct(FileManagerScannerModel $scanner, Module $module,
+            FileTransferModel $file_transfer, UserModel $user, RequestHelper $request)
     {
-        parent::__construct($config, $language, $scanner);
+        parent::__construct($scanner);
 
-        $this->file = $file;
         $this->user = $user;
         $this->module = $module;
         $this->request = $request;
+        $this->file_transfer = $file_transfer;
     }
 
     /**
@@ -123,13 +116,13 @@ class Upload extends FileManagerBaseValidatorHandler
 
             if ($maxfilesize && filesize($file['tmp_name']) > $maxfilesize) {
                 unlink($file['tmp_name']);
-                $errors[] = "{$file['name']}: " . $this->language->text('File size exceeds %num bytes', array('%num' => $maxfilesize));
+                $errors[] = "{$file['name']}: " . $this->translation->text('File size exceeds %num bytes', array('%num' => $maxfilesize));
                 continue;
             }
 
             if ($extensions && !in_array(pathinfo($file['name'], PATHINFO_EXTENSION), $extensions)) {
                 unlink($file['tmp_name']);
-                $errors[] = "{$file['name']}: " . $this->language->text('Unsupported file extension');
+                $errors[] = "{$file['name']}: " . $this->translation->text('Unsupported file extension');
             }
         }
 
@@ -151,18 +144,18 @@ class Upload extends FileManagerBaseValidatorHandler
             return null;
         }
 
-        $files = $this->getSubmitted('files');
+        $submitted_files = $this->getSubmitted('files');
 
         /* @var $file \SplFileInfo */
-        $file = reset($files);
-        $files = $this->request->file('files');
+        $file = reset($submitted_files);
+        $request_files = $this->request->file('files');
 
-        if (empty($files['name'][0])) {
-            $this->setErrorRequired('files', $this->language->text('Files'));
+        if (empty($request_files['name'][0])) {
+            $this->setErrorRequired('files', $this->translation->text('Files'));
             return false;
         }
 
-        $result = $this->file->uploadMultiple($files, false, $file->getRealPath());
+        $result = $this->file_transfer->uploadMultiple($request_files, false, $file->getRealPath());
         $this->setSubmitted('uploaded', $result);
         return true;
     }

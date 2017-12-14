@@ -9,9 +9,7 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\Config;
-use gplcart\core\models\Language as LanguageModel,
-    gplcart\core\models\UserRole as UserRoleModel;
+use gplcart\core\models\UserRole as UserRoleModel;
 use gplcart\core\handlers\validator\Base as BaseValidator;
 
 /**
@@ -27,13 +25,11 @@ class Settings extends BaseValidator
     protected $role;
 
     /**
-     * @param Config $config
-     * @param LanguageModel $language
      * @param UserRoleModel $role
      */
-    public function __construct(Config $config, LanguageModel $language, UserRoleModel $role)
+    public function __construct(UserRoleModel $role)
     {
-        parent::__construct($config, $language);
+        parent::__construct();
 
         $this->role = $role;
     }
@@ -68,19 +64,19 @@ class Settings extends BaseValidator
         $path = $this->getSubmitted($field);
 
         if (strlen($path) > 0 && preg_match('/^[\w-]+[\w-\/]*[\w-]+$|^[\w-]$/', $path) !== 1) {
-            $this->setErrorInvalid($field, $this->language->text('Initial path'));
+            $this->setErrorInvalid($field, $this->translation->text('Initial path'));
             return false;
         }
 
         $destination = gplcart_file_absolute($path);
 
         if (!file_exists($destination)) {
-            $this->setError($field, $this->language->text('Destination does not exist'));
+            $this->setError($field, $this->translation->text('Destination does not exist'));
             return false;
         }
 
         if (!is_readable($destination)) {
-            $this->setError($field, $this->language->text('Destination is not readable'));
+            $this->setError($field, $this->translation->text('Destination is not readable'));
             return false;
         }
 
@@ -97,7 +93,7 @@ class Settings extends BaseValidator
         $limit = $this->getSubmitted($field);
 
         if (!ctype_digit($limit) || strlen($limit) > 3) {
-            $this->setErrorInteger($field, $this->language->text('Limit'));
+            $this->setErrorInteger($field, $this->translation->text('Limit'));
             return false;
         }
 
@@ -147,7 +143,7 @@ class Settings extends BaseValidator
         }
 
         if (!empty($errors)) {
-            $error = $this->language->text('Error on line @num', array('@num' => implode(',', $errors)));
+            $error = $this->translation->text('Error on line @num', array('@num' => implode(',', $errors)));
             $this->setError($field, $error);
             return false;
         }
@@ -197,7 +193,7 @@ class Settings extends BaseValidator
         }
 
         if (!empty($errors)) {
-            $error = $this->language->text('Error on line @num', array('@num' => implode(',', $errors)));
+            $error = $this->translation->text('Error on line @num', array('@num' => implode(',', $errors)));
             $this->setError($field, $error);
             return false;
         }
@@ -243,7 +239,7 @@ class Settings extends BaseValidator
         }
 
         if (!empty($errors)) {
-            $error = $this->language->text('Error on line @num', array('@num' => implode(',', $errors)));
+            $error = $this->translation->text('Error on line @num', array('@num' => implode(',', $errors)));
             $this->setError($field, $error);
             return false;
         }
