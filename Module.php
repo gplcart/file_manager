@@ -15,7 +15,7 @@ use gplcart\core\Config,
 /**
  * Main class for File manager module
  */
-class FileManager
+class Module
 {
 
     /**
