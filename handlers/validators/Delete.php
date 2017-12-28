@@ -9,21 +9,20 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
-use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
+use gplcart\core\handlers\validator\Base as BaseValidator;
 
 /**
  * Provides methods to validate "delete" command
  */
-class Delete extends FileManagerBaseValidatorHandler
+class Delete extends BaseValidator
 {
 
     /**
-     * @param FileManagerScannerModel $scanner
+     * Constructor
      */
-    public function __construct(FileManagerScannerModel $scanner)
+    public function __construct()
     {
-        parent::__construct($scanner);
+        parent::__construct();
     }
 
     /**

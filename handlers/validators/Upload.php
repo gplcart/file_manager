@@ -13,13 +13,12 @@ use gplcart\core\Module;
 use gplcart\core\models\User as UserModel,
     gplcart\core\models\FileTransfer as FileTransferModel;
 use gplcart\core\helpers\Request as RequestHelper;
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
-use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
+use gplcart\core\handlers\validator\Base as BaseValidator;
 
 /**
  * Provides methods to validate "upload" command
  */
-class Upload extends FileManagerBaseValidatorHandler
+class Upload extends BaseValidator
 {
 
     /**
@@ -47,16 +46,15 @@ class Upload extends FileManagerBaseValidatorHandler
     protected $file_transfer;
 
     /**
-     * @param FileManagerScannerModel $scanner
      * @param Module $module
      * @param FileTransferModel $file_transfer
      * @param UserModel $user
      * @param RequestHelper $request
      */
-    public function __construct(FileManagerScannerModel $scanner, Module $module,
-            FileTransferModel $file_transfer, UserModel $user, RequestHelper $request)
+    public function __construct(Module $module, FileTransferModel $file_transfer, UserModel $user,
+            RequestHelper $request)
     {
-        parent::__construct($scanner);
+        parent::__construct();
 
         $this->user = $user;
         $this->module = $module;

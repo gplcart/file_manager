@@ -9,21 +9,29 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
+use gplcart\core\handlers\validator\Base as BaseValidator;
 use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
-use gplcart\modules\file_manager\handlers\validators\Base as FileManagerBaseValidatorHandler;
 
 /**
  * Provides methods to validate "copy" command
  */
-class Copy extends FileManagerBaseValidatorHandler
+class Copy extends BaseValidator
 {
+
+    /**
+     * Scanner model class instance
+     * @var \gplcart\modules\file_manager\models\Scanner $scanner
+     */
+    protected $scanner;
 
     /**
      * @param FileManagerScannerModel $scanner
      */
     public function __construct(FileManagerScannerModel $scanner)
     {
-        parent::__construct($scanner);
+        parent::__construct();
+
+        $this->scanner = $scanner;
     }
 
     /**

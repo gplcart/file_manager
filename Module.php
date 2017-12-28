@@ -82,10 +82,11 @@ class Module
      */
     public function hookUserRolePermissions(array &$permissions)
     {
-        $permissions['module_file_manager'] = $this->getLanguage()->text('File manager: access');
+        $translation = $this->getTranslationModel();
+        $permissions['module_file_manager'] = $translation->text('File manager: access');
 
         foreach ($this->getModel()->getHandlers() as $command_id => $command) {
-            $permissions["module_file_manager_$command_id"] = $this->getLanguage()->text('File manager: perform command @name', array('@name' => $command['name']));
+            $permissions["module_file_manager_$command_id"] = $translation->text('File manager: perform command @name', array('@name' => $command['name']));
         }
     }
 
@@ -96,7 +97,7 @@ class Module
     public function hookModuleInstallBefore(&$result)
     {
         if (!class_exists('ZipArchive')) {
-            $result = $this->getLanguage()->text('Class ZipArchive does not exist');
+            $result = $this->getTranslationModel()->text('Class ZipArchive does not exist');
         }
     }
 
@@ -122,12 +123,12 @@ class Module
     }
 
     /**
-     * Language model class instance
-     * @return \gplcart\core\modules\Language
+     * Translation UI model class instance
+     * @return \gplcart\core\models\Translation
      */
-    protected function getLanguage()
+    protected function getTranslationModel()
     {
-        return Container::get('gplcart\\core\\modules\\Language');
+        return Container::get('gplcart\\core\\models\\Translation');
     }
 
 }
