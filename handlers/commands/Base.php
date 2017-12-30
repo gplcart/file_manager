@@ -20,10 +20,10 @@ class Base extends Handler
 {
 
     /**
-     * Config class instance
-     * @var \gplcart\core\Config $config
+     * Scanner model class instance
+     * @var \gplcart\modules\file_manager\models\Scanner $scanner
      */
-    protected $config;
+    protected $scanner;
 
     /**
      * Translation UI model class instance
@@ -32,25 +32,11 @@ class Base extends Handler
     protected $translation;
 
     /**
-     * Command model class instance
-     * @var \gplcart\modules\file_manager\models\Command $command
-     */
-    protected $command;
-
-    /**
-     * Scanner model class instance
-     * @var \gplcart\modules\file_manager\models\Scanner $scanner
-     */
-    protected $scanner;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->config = Container::get('gplcart\\core\\Config');
         $this->translation = Container::get('gplcart\\core\\models\\Translation');
-        $this->command = Container::get('gplcart\\modules\\file_manager\\models\\Command');
         $this->scanner = Container::get('gplcart\\modules\\file_manager\\models\\Scanner');
     }
 

@@ -9,6 +9,7 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
+use gplcart\modules\file_manager\models\Command as FileManagerCommandModel;
 use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
 
 /**
@@ -24,11 +25,19 @@ class Listing extends FileManagerBaseHandler
     protected $controller;
 
     /**
-     * Constructor
+     * Command model class instance
+     * @var \gplcart\modules\file_manager\models\Command $command
      */
-    public function __construct()
+    protected $command;
+
+    /**
+     * @param FileManagerCommandModel $command
+     */
+    public function __construct(FileManagerCommandModel $command)
     {
         parent::__construct();
+
+        $this->command = $command;
     }
 
     /**

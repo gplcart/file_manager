@@ -11,8 +11,7 @@ namespace gplcart\modules\file_manager\models;
 
 use LimitIterator;
 use FilesystemIterator;
-use gplcart\core\Config,
-    gplcart\core\Hook,
+use gplcart\core\Hook,
     gplcart\core\Module;
 use gplcart\modules\file_manager\helpers\Filter;
 
@@ -29,26 +28,18 @@ class Scanner
     protected $hook;
 
     /**
-     * Config class instance
-     * @var \gplcart\core\Config $config
-     */
-    protected $config;
-    
-    /**
      * Module class instance
      * @var \gplcart\core\Module $module
      */
     protected $module;
-    
+
     /**
      * @param Hook $hook
-     * @param Config $config
      * @param Module $module
      */
-    public function __construct(Hook $hook, Config $config, Module $module)
+    public function __construct(Hook $hook, Module $module)
     {
         $this->hook = $hook;
-        $this->config = $config;
         $this->module = $module;
     }
 

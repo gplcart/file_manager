@@ -9,6 +9,7 @@
 
 namespace gplcart\modules\file_manager\models;
 
+use Exception;
 use gplcart\core\Handler,
     gplcart\core\Hook;
 
@@ -110,7 +111,7 @@ class Command
         try {
             $handlers = $this->getHandlers();
             return Handler::call($handlers, $command['command_id'], $method, $args);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             return $ex->getMessage();
         }
     }

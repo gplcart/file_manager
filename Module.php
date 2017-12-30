@@ -102,18 +102,6 @@ class Module
     }
 
     /**
-     * Implements hook "module.uninstall.after"
-     */
-    public function hookModuleUninstallAfter()
-    {
-        foreach (array_keys($this->config->select()) as $key) {
-            if (strpos($key, 'module_file_manager_') === 0) {
-                $this->config->reset($key);
-            }
-        }
-    }
-
-    /**
      * Returns Command model instance
      * @return \gplcart\modules\file_manager\models\Command
      */
