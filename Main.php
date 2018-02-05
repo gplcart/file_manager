@@ -9,8 +9,8 @@
 
 namespace gplcart\modules\file_manager;
 
-use gplcart\core\Config,
-    gplcart\core\Container;
+use gplcart\core\Config;
+use gplcart\core\Container;
 
 /**
  * Main class for File manager module
@@ -47,7 +47,9 @@ class Main
 
         $routes['admin/tool/file-manager'] = array(
             'access' => 'module_file_manager',
-            'menu' => array('admin' => /* @text */'File manager'),
+            'menu' => array(
+                'admin' => 'File manager' // @text
+            ),
             'handlers' => array(
                 'controller' => array('gplcart\\modules\\file_manager\\controllers\\FileManager', 'viewFileManager')
             )
