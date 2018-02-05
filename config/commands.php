@@ -8,24 +8,24 @@
  */
 return array(
     'list' => array(
-        'name' => /* @text */'List',
-        'tab' => /* @text */'Browse',
+        'name' => 'List', // @text
+        'tab' => 'Browse', // @text
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Listing', 'view'),
             'allowed' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Listing', 'allowed')
         )
     ),
     'read' => array(
-        'name' => /* @text */'Read',
-        'tab' => /* @text */'Read',
+        'name' => 'Read', // @text
+        'tab' => 'Read',
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Read', 'view'),
             'allowed' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Read', 'allowed')
         )
     ),
     'create' => array(
-        'name' => /* @text */'Create',
-        'tab' => /* @text */'Create',
+        'name' => 'Create', // @text
+        'tab' => 'Create',
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Create', 'view'),
             'submit' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Create', 'submit'),
@@ -33,8 +33,8 @@ return array(
         )
     ),
     'rename' => array(
-        'name' => /* @text */'Rename',
-        'tab' => /* @text */'Rename',
+        'name' => 'Rename', // @text
+        'tab' => 'Rename',
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Rename', 'view'),
             'submit' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Rename', 'submit'),
@@ -42,8 +42,8 @@ return array(
         )
     ),
     'move' => array(
-        'name' => /* @text */'Move',
-        'tab' => /* @text */'Move',
+        'name' => 'Move', // @text
+        'tab' => 'Move',
         'multiple' => true,
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Move', 'view'),
@@ -52,8 +52,8 @@ return array(
         )
     ),
     'emptydir' => array(
-        'name' => /* @text */'Empty',
-        'tab' => /* @text */'Empty',
+        'name' => 'Empty', // @text
+        'tab' => 'Empty',
         'multiple' => true,
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\EmptyDir', 'view'),
@@ -62,8 +62,8 @@ return array(
         )
     ),
     'delete' => array(
-        'name' => /* @text */'Delete',
-        'tab' => /* @text */'Delete',
+        'name' => 'Delete', // @text
+        'tab' => 'Delete',
         'multiple' => true,
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Delete', 'view'),
@@ -72,8 +72,8 @@ return array(
         )
     ),
     'copy' => array(
-        'name' => /* @text */'Copy',
-        'tab' => /* @text */'Copy',
+        'name' => 'Copy', // @text
+        'tab' => 'Copy',
         'multiple' => true,
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Copy', 'view'),
@@ -82,8 +82,8 @@ return array(
         )
     ),
     'download' => array(
-        'name' => /* @text */'Download',
-        'tab' => /* @text */'Download',
+        'name' => 'Download', // @text
+        'tab' => 'Download',
         'multiple' => true,
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Download', 'view'),
@@ -92,8 +92,8 @@ return array(
         )
     ),
     'upload' => array(
-        'name' => /* @text */'Upload',
-        'tab' => /* @text */'Upload',
+        'name' => 'Upload', // @text
+        'tab' => 'Upload',
         'handlers' => array(
             'view' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Upload', 'view'),
             'submit' => array('gplcart\\modules\\file_manager\\handlers\\commands\\Upload', 'submit'),
