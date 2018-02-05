@@ -8,36 +8,36 @@
  */
 return array(
     'name' => array(
-        'name' => /* @text */'Name',
+        'name' => 'Name', // @text
         'handlers' => array(
-            'sort' => function(\SplFileInfo $a, \SplFileInfo $b, $order) {
+            'sort' => function (\SplFileInfo $a, \SplFileInfo $b, $order) {
                 $result = strcmp($a->getFilename(), $b->getFilename());
                 return $order === 'desc' ? -$result : $result;
             }
         )
     ),
     'date' => array(
-        'name' => /* @text */'Date',
+        'name' => 'Date', // @text
         'handlers' => array(
-            'sort' => function(\SplFileInfo $a, \SplFileInfo $b, $order) {
+            'sort' => function (\SplFileInfo $a, \SplFileInfo $b, $order) {
                 $result = $a->getMTime() < $b->getMTime() ? -1 : 1;
                 return $order === 'desc' ? -$result : $result;
             }
         )
     ),
     'size' => array(
-        'name' => /* @text */'Size',
+        'name' => 'File size', // @text
         'handlers' => array(
-            'sort' => function(\SplFileInfo $a, \SplFileInfo $b, $order) {
+            'sort' => function (\SplFileInfo $a, \SplFileInfo $b, $order) {
                 $result = $a->getSize() < $b->getSize() ? -1 : 1;
                 return $order === 'desc' ? -$result : $result;
             }
         )
     ),
     'type' => array(
-        'name' => /* @text */'Type',
+        'name' => 'Type', // @text
         'handlers' => array(
-            'sort' => function(\SplFileInfo $a, \SplFileInfo $b, $order) {
+            'sort' => function (\SplFileInfo $a, \SplFileInfo $b, $order) {
                 $result = strcmp($a->getType(), $b->getType());
                 return $order === 'desc' ? -$result : $result;
             }

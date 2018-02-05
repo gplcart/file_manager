@@ -8,10 +8,10 @@
  */
 return array(
     'date' => array(
-        'input' => /* @text */'10 days ago,yesterday',
-        'name' => /* @text */'Modified between',
+        'input' => '10 days ago,yesterday', // @text
+        'name' => 'Modified between', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file, $value) {
+            'filter' => function (\SplFileInfo $file, $value) {
 
                 $args = array_map('trim', explode(',', $value, 2));
                 $args += array(1 => 'now');
@@ -29,10 +29,10 @@ return array(
         )
     ),
     'ext' => array(
-        'input' => /* @text */'jpg,gif,png',
-        'name' => /* @text */'Has extension',
+        'input' => 'jpg,gif,png',
+        'name' => 'Has extension', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file, $value) {
+            'filter' => function (\SplFileInfo $file, $value) {
                 $exts = array_map('trim', explode(',', $value));
                 return in_array($file->getExtension(), $exts);
             }
@@ -40,57 +40,57 @@ return array(
     ),
     'contains' => array(
         'input' => '',
-        'name' => /* @text */'Filename contains',
+        'name' => 'Filename contains', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file, $value) {
+            'filter' => function (\SplFileInfo $file, $value) {
                 return stripos($file->getFilename(), $value) !== false;
             }
         )
     ),
     'type_dir' => array(
-        'name' => /* @text */'Is directory',
+        'name' => 'Is directory', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file) {
+            'filter' => function (\SplFileInfo $file) {
                 return $file->isDir();
             }
         )
     ),
     'type_file' => array(
-        'name' => /* @text */'Is file',
+        'name' => 'Is file', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file) {
+            'filter' => function (\SplFileInfo $file) {
                 return $file->isFile();
             }
         )
     ),
     'type_link' => array(
-        'name' => /* @text */'Is link',
+        'name' => 'Is link', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file) {
+            'filter' => function (\SplFileInfo $file) {
                 return $file->isLink();
             }
         )
     ),
     'executable' => array(
-        'name' => /* @text */'Is executable',
+        'name' => 'Is executable', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file) {
+            'filter' => function (\SplFileInfo $file) {
                 return $file->isExecutable();
             }
         )
     ),
     'writable' => array(
-        'name' => /* @text */'Is writable',
+        'name' => 'Is writable', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file) {
+            'filter' => function (\SplFileInfo $file) {
                 return $file->isWritable();
             }
         )
     ),
     'readable' => array(
-        'name' => /* @text */'Is readable',
+        'name' => 'Is readable', // @text
         'handlers' => array(
-            'filter' => function(\SplFileInfo $file) {
+            'filter' => function (\SplFileInfo $file) {
                 return $file->isReadable();
             }
         )
