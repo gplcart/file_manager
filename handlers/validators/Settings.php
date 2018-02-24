@@ -9,13 +9,13 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\models\UserRole as UserRoleModel;
-use gplcart\core\handlers\validator\Base as BaseValidator;
+use gplcart\core\handlers\validator\Element;
+use gplcart\core\models\UserRole;
 
 /**
  * Provides methods to validate module settings
  */
-class Settings extends BaseValidator
+class Settings extends Element
 {
 
     /**
@@ -25,9 +25,10 @@ class Settings extends BaseValidator
     protected $role;
 
     /**
-     * @param UserRoleModel $role
+     * Settings constructor.
+     * @param UserRole $role
      */
-    public function __construct(UserRoleModel $role)
+    public function __construct(UserRole $role)
     {
         parent::__construct();
 

@@ -9,21 +9,13 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\handlers\validator\Base as BaseValidator;
+use gplcart\core\handlers\validator\Element;
 
 /**
  * Provides methods to validate "create" command
  */
-class Create extends BaseValidator
+class Create extends Element
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Validates an array of submitted data while creating a new file

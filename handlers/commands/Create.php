@@ -9,21 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
-
 /**
  * Contains methods for "create" command
  */
-class Create extends FileManagerBaseHandler
+class Create extends Command
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Whether the command is allowed for the file
@@ -45,7 +35,7 @@ class Create extends FileManagerBaseHandler
         return array(
             'file_manager|commands/create' => array(
                 'path' => $this->getRelativePath($file->getRealPath())
-        ));
+            ));
     }
 
     /**
@@ -68,6 +58,7 @@ class Create extends FileManagerBaseHandler
         }
 
         $result = true;
+
         if ($directory && !file_exists($directory)) {
             $result = mkdir($directory, 0777, true);
         }

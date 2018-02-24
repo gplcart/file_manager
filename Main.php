@@ -9,7 +9,6 @@
 
 namespace gplcart\modules\file_manager;
 
-use gplcart\core\Config;
 use gplcart\core\Container;
 
 /**
@@ -17,20 +16,6 @@ use gplcart\core\Container;
  */
 class Main
 {
-
-    /**
-     * Config class instance
-     * @var \gplcart\core\Config $config
-     */
-    protected $config;
-
-    /**
-     * @param Config $config
-     */
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-    }
 
     /**
      * Implements hook "route.list"
@@ -62,7 +47,7 @@ class Main
      */
     public function hookValidatorHandlers(array &$handlers)
     {
-        foreach (array_keys($this->getModel()->getHandlers()) as $command_id) {
+        foreach (array_keys($this->getHandlers()) as $command_id) {
             $class = str_replace('_', '', $command_id);
             $handlers["file_manager_$command_id"] = array(
                 'handlers' => array(
@@ -84,41 +69,32 @@ class Main
      */
     public function hookUserRolePermissions(array &$permissions)
     {
-        $translation = $this->getTranslationModel();
-        $permissions['module_file_manager'] = $translation->text('File manager: access');
+        $permissions['module_file_manager'] = gplcart_text('File manager: access');
 
-        foreach ($this->getModel()->getHandlers() as $command_id => $command) {
-            $permissions["module_file_manager_$command_id"] = $translation->text('File manager: perform command @name', array('@name' => $command['name']));
+        foreach ($this->getHandlers() as $command_id => $command) {
+            $permissions["module_file_manager_$command_id"] = gplcart_text('File manager: perform command @name', array(
+                '@name' => $command['name']));
         }
     }
 
     /**
-     * Implements hook "module.install.before"
-     * @param null|string $result
+     * Returns an array of command handlers
+     * @return array
      */
-    public function hookModuleInstallBefore(&$result)
+    public function getHandlers()
     {
-        if (!class_exists('ZipArchive')) {
-            $result = $this->getTranslationModel()->text('Class ZipArchive does not exist');
-        }
+        return $this->getCommandModel()->getHandlers();
     }
 
     /**
      * Returns Command model instance
      * @return \gplcart\modules\file_manager\models\Command
      */
-    protected function getModel()
+    public function getCommandModel()
     {
-        return Container::get('gplcart\\modules\\file_manager\\models\\Command');
-    }
-
-    /**
-     * Translation UI model class instance
-     * @return \gplcart\core\models\Translation
-     */
-    protected function getTranslationModel()
-    {
-        return Container::get('gplcart\\core\\models\\Translation');
+        /** @var \gplcart\modules\file_manager\models\Command $instance */
+        $instance = Container::get('gplcart\\modules\\file_manager\\models\\Command');
+        return $instance;
     }
 
 }

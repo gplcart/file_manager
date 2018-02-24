@@ -9,21 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
-
 /**
  * Contains methods for "rename" command
  */
-class Rename extends FileManagerBaseHandler
+class Rename extends Command
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Whether the command is allowed for the file
@@ -46,7 +36,7 @@ class Rename extends FileManagerBaseHandler
             'file_manager|commands/rename' => array(
                 'name' => $file->getBasename(),
                 'path' => dirname($this->getRelativePath($file->getRealPath()))
-        ));
+            ));
     }
 
     /**

@@ -9,11 +9,11 @@
 
 namespace gplcart\modules\file_manager\models;
 
-use LimitIterator;
 use FilesystemIterator;
-use gplcart\core\Hook,
-    gplcart\core\Module;
+use gplcart\core\Hook;
+use gplcart\core\Module;
 use gplcart\modules\file_manager\helpers\Filter;
+use LimitIterator;
 
 /**
  * Manages basic behaviors and data related to File manager module
@@ -99,9 +99,9 @@ class Scanner
         if (isset($sorters[$sort]['handlers']['sort'])) {
             $function = $sorters[$sort]['handlers']['sort'];
             // Suppress errors, see https://bugs.php.net/bug.php?id=50688
-            @uasort($files, function($a, $b) use ($function, $order) {
-                        return $function($a, $b, $order);
-                    });
+            @uasort($files, function ($a, $b) use ($function, $order) {
+                return $function($a, $b, $order);
+            });
         }
     }
 

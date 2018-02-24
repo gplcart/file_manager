@@ -10,13 +10,13 @@
 namespace gplcart\modules\file_manager\handlers\commands;
 
 use DirectoryIterator;
-use gplcart\core\Handler,
-    gplcart\core\Container;
+use gplcart\core\Container;
+use gplcart\core\Handler;
 
 /**
  * Base handler class
  */
-class Base extends Handler
+class Command extends Handler
 {
 
     /**
@@ -137,10 +137,12 @@ class Base extends Handler
     protected function copy($src, $dest, &$errors = 0, &$success = 0)
     {
         if (is_file($src)) {
+
             if (copy($src, $dest)) {
                 $success++;
                 return true;
             }
+
             $errors++;
             return false;
         }
@@ -154,6 +156,7 @@ class Base extends Handler
 
             $result = null;
             $copyto = "$dest/" . $file->getBasename();
+
             if ($file->isFile() || (!$file->isDot() && $file->isDir())) {
                 $result = $this->copy($file->getRealPath(), $copyto, $errors, $success);
             }
@@ -182,6 +185,7 @@ class Base extends Handler
     {
         $current_path = gplcart_path_normalize($file->getRealPath());
         $initial_path = gplcart_path_normalize($this->scanner->getInitialPath(true));
+
         return $current_path === $initial_path;
     }
 

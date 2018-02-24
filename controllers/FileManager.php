@@ -1,23 +1,23 @@
 <?php
 
 /**
- * @package File manager 
- * @author Iurii Makukh <gplcart.software@gmail.com> 
- * @copyright Copyright (c) 2017, Iurii Makukh <gplcart.software@gmail.com> 
- * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+ 
+ * @package File manager
+ * @author Iurii Makukh <gplcart.software@gmail.com>
+ * @copyright Copyright (c) 2017, Iurii Makukh <gplcart.software@gmail.com>
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
  */
 
 namespace gplcart\modules\file_manager\controllers;
 
+use gplcart\core\controllers\backend\Controller;
+use gplcart\modules\file_manager\models\Command;
+use gplcart\modules\file_manager\models\Scanner;
 use SplFileInfo;
-use gplcart\modules\file_manager\models\Command as FileManagerCommandModel,
-    gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
-use gplcart\core\controllers\backend\Controller as BackendController;
 
 /**
  * Handles incoming requests and outputs data related to File manager module
  */
-class FileManager extends BackendController
+class FileManager extends Controller
 {
 
     /**
@@ -69,10 +69,11 @@ class FileManager extends BackendController
     protected $scanner;
 
     /**
-     * @param FileManagerCommandModel $command
-     * @param FileManagerScannerModel $scanner
+     * FileManager constructor.
+     * @param Command $command
+     * @param Scanner $scanner
      */
-    public function __construct(FileManagerCommandModel $command, FileManagerScannerModel $scanner)
+    public function __construct(Command $command, Scanner $scanner)
     {
         parent::__construct();
 
@@ -94,6 +95,7 @@ class FileManager extends BackendController
         }
 
         $this->data_absolute_path = gplcart_file_absolute($this->data_path);
+
         if (gplcart_path_starts($this->data_absolute_path, $initial_absolute_path) && file_exists($this->data_absolute_path)) {
             $this->data_access = true;
             $this->data_file = new SplFileInfo($this->data_absolute_path);
@@ -157,26 +159,25 @@ class FileManager extends BackendController
      */
     protected function setDataContendFileManager()
     {
-        if (!$this->data_access) {
-            return null;
+        if ($this->data_access) {
+
+            $data = $this->command->getView($this->data_command, array($this->data_file, $this));
+
+            if (is_string($data)) {
+                $this->setMessageFileManager($data, 'warning');
+            } else {
+
+                settype($data, 'array');
+
+                $template_data = reset($data);
+                $template = key($data);
+                $template_data['file'] = $this->data_file;
+                $template_data['breadcrumbs'] = $this->getPathBreadcrumbsFileManager();
+                $rendered = $this->render($template, array_merge($template_data, $this->data));
+
+                $this->setData('content', $rendered);
+            }
         }
-
-        $data = $this->command->getView($this->data_command, array($this->data_file, $this));
-
-        if (is_string($data)) {
-            $this->setMessageFileManager($data, 'warning');
-            return null;
-        }
-
-        settype($data, 'array');
-
-        $template_data = reset($data);
-        $template = key($data);
-        $template_data['file'] = $this->data_file;
-        $template_data['breadcrumbs'] = $this->getPathBreadcrumbsFileManager();
-        $rendered = $this->render($template, array_merge($template_data, $this->data));
-
-        $this->setData('content', $rendered);
     }
 
     /**
@@ -272,6 +273,7 @@ class FileManager extends BackendController
         $breadcrumbs = array(array('text' => $this->text('Home'), 'path' => $initial_path));
 
         $path = '';
+
         foreach (explode('/', $this->data_path) as $folder) {
             $path .= "$folder/";
             $trimmed_path = trim($path, '/');
@@ -397,6 +399,7 @@ class FileManager extends BackendController
     protected function getActionsFileManager()
     {
         $commands = $this->command->getHandlers();
+
         foreach ($commands as $command_id => $command) {
             if (empty($command['multiple'])) {
                 unset($commands[$command_id]);

@@ -9,21 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
-
 /**
  * Contains methods for "read" command
  */
-class Read extends FileManagerBaseHandler
+class Read extends Command
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Whether the command is allowed for the file
@@ -73,6 +63,7 @@ class Read extends FileManagerBaseHandler
         }
 
         $extension = $file->getExtension();
+
         foreach ($this->getMethods() as $method => $extensions) {
             if (in_array($extension, $extensions)) {
                 return $this->$method($file, $controller);

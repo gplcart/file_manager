@@ -9,21 +9,13 @@
 
 namespace gplcart\modules\file_manager\controllers;
 
-use gplcart\core\controllers\backend\Controller as BackendController;
+use gplcart\core\controllers\backend\Controller;
 
 /**
  * Handles incoming requests and outputs data related to File manager module
  */
-class Settings extends BackendController
+class Settings extends Controller
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Route page callback to display the module settings page
@@ -51,18 +43,18 @@ class Settings extends BackendController
     {
         $access = $this->getData('settings.access');
 
-        if (!is_array($access)) {
-            return null;
-        }
+        if (is_array($access)) {
 
-        $string = '';
-        foreach ($access as $role_id => $patterns) {
-            foreach ($patterns as $pattern) {
-                $string .= "$role_id $pattern\n";
+            $string = '';
+
+            foreach ($access as $role_id => $patterns) {
+                foreach ($patterns as $pattern) {
+                    $string .= "$role_id $pattern" . PHP_EOL;
+                }
             }
-        }
 
-        $this->setData('settings.access', trim($string));
+            $this->setData('settings.access', trim($string));
+        }
     }
 
     /**
@@ -74,10 +66,12 @@ class Settings extends BackendController
         $data = $this->getData("settings.$setting");
 
         if (is_array($data)) {
+
             $string = '';
+
             foreach ($data as $key => $value) {
                 $list = implode(',', (array) $value);
-                $string .= "$key $list\n";
+                $string .= "$key $list" . PHP_EOL;
             }
 
             $this->setData("settings.$setting", trim($string));
@@ -131,6 +125,7 @@ class Settings extends BackendController
     {
         $this->setSubmitted('settings', null, false);
         $this->validateComponent('file_manager_settings');
+
         return !$this->hasErrors();
     }
 

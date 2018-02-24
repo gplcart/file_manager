@@ -9,21 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
-
 /**
  * Contains methods for "emptydir" command
  */
-class EmptyDir extends FileManagerBaseHandler
+class EmptyDir extends Command
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Whether the command is allowed for the file
@@ -49,7 +39,7 @@ class EmptyDir extends FileManagerBaseHandler
                 'name' => $file->getBasename(),
                 'count' => $this->getTotal($path),
                 'path' => gplcart_path_relative($path)
-        ));
+            ));
     }
 
     /**

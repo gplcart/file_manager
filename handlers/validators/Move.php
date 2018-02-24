@@ -9,19 +9,19 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
-use gplcart\modules\file_manager\handlers\validators\Copy as FileManagerCopyValidatorHandler;
+use gplcart\modules\file_manager\models\Scanner;
 
 /**
  * Provides methods to validate "move" command
  */
-class Move extends FileManagerCopyValidatorHandler
+class Move extends Copy
 {
 
     /**
-     * @param FileManagerScannerModel $scanner
+     * Move constructor.
+     * @param Scanner $scanner
      */
-    public function __construct(FileManagerScannerModel $scanner)
+    public function __construct(Scanner $scanner)
     {
         parent::__construct($scanner);
     }

@@ -9,21 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
-
 /**
  * Contains methods for "move" command
  */
-class Move extends FileManagerBaseHandler
+class Move extends Command
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Whether the command is allowed for the file

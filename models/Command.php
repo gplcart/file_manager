@@ -10,8 +10,9 @@
 namespace gplcart\modules\file_manager\models;
 
 use Exception;
-use gplcart\core\Handler,
-    gplcart\core\Hook;
+use gplcart\core\Handler;
+use gplcart\core\Hook;
+use SplFileInfo;
 
 /**
  * Manages basic behaviors and data related to File manager module
@@ -68,12 +69,13 @@ class Command
 
     /**
      * Returns an array of allowed commands for the given file
-     * @param \SplFileInfo|array $file
+     * @param SplFileInfo|array $file
      * @return array
      */
     public function getAllowed($file)
     {
         $commands = array();
+
         foreach ($this->getHandlers() as $id => $command) {
             if ($this->isAllowed($command, $file)) {
                 $commands[$id] = $command;
@@ -86,16 +88,17 @@ class Command
     /**
      * Whether the command is allowed for the file
      * @param array $command
-     * @param \SplFileInfo $file
+     * @param SplFileInfo $file
      * @return boolean
      */
     public function isAllowed(array $command, $file)
     {
-        if (!$file instanceof \SplFileInfo || empty($command['command_id'])) {
+        if (!$file instanceof SplFileInfo || empty($command['command_id'])) {
             return false;
         }
 
         $result = $this->callHandler($command, 'allowed', array($file, $command));
+
         return is_bool($result) ? $result : false;
     }
 

@@ -9,21 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
-
 /**
  * Contains methods for "copy" command
  */
-class Copy extends FileManagerBaseHandler
+class Copy extends Command
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Whether the command is allowed for the file
@@ -57,6 +47,7 @@ class Copy extends FileManagerBaseHandler
 
         $destination = null;
         $errors = $success = 0;
+
         foreach ($submitted['files'] as $index => $file) {
 
             if (empty($submitted['destinations'][$index])) {

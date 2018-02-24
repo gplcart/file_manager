@@ -9,21 +9,13 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\handlers\validator\Base as BaseValidator;
+use gplcart\core\handlers\validator\Element;
 
 /**
  * Provides methods to validate "delete" command
  */
-class Delete extends BaseValidator
+class Delete extends Element
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * @return boolean

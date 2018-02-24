@@ -9,16 +9,16 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
+use gplcart\core\handlers\validator\Element;
+use gplcart\core\helpers\Request;
+use gplcart\core\models\FileTransfer;
+use gplcart\core\models\User;
 use gplcart\core\Module;
-use gplcart\core\models\User as UserModel,
-    gplcart\core\models\FileTransfer as FileTransferModel;
-use gplcart\core\helpers\Request as RequestHelper;
-use gplcart\core\handlers\validator\Base as BaseValidator;
 
 /**
  * Provides methods to validate "upload" command
  */
-class Upload extends BaseValidator
+class Upload extends Element
 {
 
     /**
@@ -46,13 +46,13 @@ class Upload extends BaseValidator
     protected $file_transfer;
 
     /**
+     * Upload constructor.
      * @param Module $module
-     * @param FileTransferModel $file_transfer
-     * @param UserModel $user
-     * @param RequestHelper $request
+     * @param FileTransfer $file_transfer
+     * @param User $user
+     * @param Request $request
      */
-    public function __construct(Module $module, FileTransferModel $file_transfer, UserModel $user,
-            RequestHelper $request)
+    public function __construct(Module $module, FileTransfer $file_transfer, User $user, Request $request)
     {
         parent::__construct();
 

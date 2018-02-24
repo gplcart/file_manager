@@ -9,13 +9,12 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\core\models\User as UserModel;
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
+use gplcart\core\models\User;
 
 /**
  * Contains methods for "upload" command
  */
-class Upload extends FileManagerBaseHandler
+class Upload extends Command
 {
 
     /**
@@ -25,9 +24,10 @@ class Upload extends FileManagerBaseHandler
     protected $user;
 
     /**
-     * @param UserModel $user
+     * Upload constructor.
+     * @param User $user
      */
-    public function __construct(UserModel $user)
+    public function __construct(User $user)
     {
         parent::__construct();
 

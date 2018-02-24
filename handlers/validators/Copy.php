@@ -9,13 +9,13 @@
 
 namespace gplcart\modules\file_manager\handlers\validators;
 
-use gplcart\core\handlers\validator\Base as BaseValidator;
-use gplcart\modules\file_manager\models\Scanner as FileManagerScannerModel;
+use gplcart\core\handlers\validator\Element;
+use gplcart\modules\file_manager\models\Scanner;
 
 /**
  * Provides methods to validate "copy" command
  */
-class Copy extends BaseValidator
+class Copy extends Element
 {
 
     /**
@@ -25,9 +25,10 @@ class Copy extends BaseValidator
     protected $scanner;
 
     /**
-     * @param FileManagerScannerModel $scanner
+     * Copy constructor.
+     * @param Scanner $scanner
      */
-    public function __construct(FileManagerScannerModel $scanner)
+    public function __construct(Scanner $scanner)
     {
         parent::__construct();
 
@@ -54,17 +55,14 @@ class Copy extends BaseValidator
 
     /**
      * Validates a directory name
-     * @return boolean
      */
     protected function validateDestinationNameCopy()
     {
         $destination = $this->getSubmitted('destination');
+
         if ($destination !== '' && preg_match('/^[\w-]+[\w-\/]*[\w-]+$|^[\w-]$/', $destination) !== 1) {
             $this->setErrorInvalid('destination', $this->translation->text('Destination'));
-            return false;
         }
-
-        return true;
     }
 
     /**
@@ -133,10 +131,10 @@ class Copy extends BaseValidator
 
         if (isset($error)) {
             $this->setError('destination', $error);
-            return false;
+        } else {
+            $this->setSubmitted('destinations', $destinations);
         }
 
-        $this->setSubmitted('destinations', $destinations);
         return true;
     }
 

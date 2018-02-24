@@ -9,21 +9,11 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
-
 /**
  * Contains methods for "delete" command
  */
-class Delete extends FileManagerBaseHandler
+class Delete extends Command
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Whether the command is allowed for the file
@@ -45,7 +35,7 @@ class Delete extends FileManagerBaseHandler
         return array(
             'file_manager|commands/delete' => array(
                 'path' => $this->getRelativePath($file->getRealPath())
-        ));
+            ));
     }
 
     /**

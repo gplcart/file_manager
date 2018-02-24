@@ -9,14 +9,13 @@
 
 namespace gplcart\modules\file_manager\handlers\commands;
 
-use gplcart\core\helpers\Zip as ZipHelper,
-    gplcart\core\helpers\Session as SessionHelper;
-use gplcart\modules\file_manager\handlers\commands\Base as FileManagerBaseHandler;
+use gplcart\core\helpers\Session;
+use gplcart\core\helpers\Zip;
 
 /**
  * Contains methods for "download" command
  */
-class Download extends FileManagerBaseHandler
+class Download extends Command
 {
 
     /**
@@ -32,10 +31,11 @@ class Download extends FileManagerBaseHandler
     protected $session;
 
     /**
-     * @param ZipHelper $zip
-     * @param SessionHelper $session
+     * Download constructor.
+     * @param Zip $zip
+     * @param Session $session
      */
-    public function __construct(ZipHelper $zip, SessionHelper $session)
+    public function __construct(Zip $zip, Session $session)
     {
         parent::__construct();
 
@@ -63,7 +63,7 @@ class Download extends FileManagerBaseHandler
         return array(
             'file_manager|commands/download' => array(
                 'path' => gplcart_path_relative($file->getRealPath())
-        ));
+            ));
     }
 
     /**
