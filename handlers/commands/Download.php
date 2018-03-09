@@ -11,6 +11,7 @@ namespace gplcart\modules\file_manager\handlers\commands;
 
 use gplcart\core\helpers\Session;
 use gplcart\core\helpers\Zip;
+use gplcart\core\models\File;
 
 /**
  * Contains methods for "download" command
@@ -31,15 +32,23 @@ class Download extends Command
     protected $session;
 
     /**
+     * File model class instance
+     * @var \gplcart\core\models\File $file
+     */
+    protected $file;
+
+    /**
      * Download constructor.
+     * @param File $file
      * @param Zip $zip
      * @param Session $session
      */
-    public function __construct(Zip $zip, Session $session)
+    public function __construct(File $file, Zip $zip, Session $session)
     {
         parent::__construct();
 
         $this->zip = $zip;
+        $this->file = $file;
         $this->session = $session;
     }
 
@@ -77,7 +86,7 @@ class Download extends Command
         // Download method calls exit() so clean session here
         $this->session->delete('file_manager_selected');
 
-        $destination = gplcart_file_tempname();
+        $destination = $this->file->getTempFile();
         $files = $controller->getSubmitted('files');
 
         /* @var $file \SplFileInfo */
